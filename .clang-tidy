@@ -1,0 +1,22 @@
+# Configuration for embedded C on microcontrollers
+Checks: >
+  bugprone-assignment-in-if-condition, bugprone-infinite-loop, bugprone-sizeof-expression, bugprone-misplaced-widening-cast, bugprone-suspicious-memset-usage, bugprone-narrowing-conversions, misc-definitions-in-headers, misc-static-assert, readability-function-size, readability-braces-around-statements, -readability-magic-numbers, -modernize-*, -cppcoreguidelines-*
+
+WarningsAsErrors: ''
+HeaderFilterRegex: '^mti_.*'
+
+CheckOptions:
+# Function size limits
+- key: readability-function-size.LineThreshold
+  value: 150
+- key: readability-function-size.StatementThreshold
+  value: 75
+- key: readability-function-size.BranchThreshold
+  value: 20
+
+# Volatile Declarations:
+# Ensure that all hardware registers and memory-mapped peripherals are declared with the 'volatile' keyword.
+# Note: clang-tidy does not currently offer a built-in check for volatile declarations, 
+# so manual code reviews or additional static analysis tools should be used to enforce this requirement.
+
+FormatStyle: file

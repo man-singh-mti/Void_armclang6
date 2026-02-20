@@ -1,0 +1,79 @@
+# Basic Formatting
+UseTab: Never
+TabWidth: 4
+IndentWidth: 4
+ColumnLimit: 169
+UseCRLF: false # Use Unix-style line endings for embedded
+
+# Alignment and Indentation
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignConsecutiveMacros: true
+AlignEscapedNewlines: Left
+AlignOperands: true
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlignConsecutiveBitFields: true
+BitFieldColonSpacing: Both
+
+# Breaks and Wrapping
+Cpp11BracedListStyle: false
+AlwaysBreakAfterReturnType: None
+BinPackArguments: false
+BinPackParameters: false
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterControlStatement: true
+  AfterEnum: true
+  AfterFunction: true
+  AfterStruct: true
+  BeforeElse: true
+  # Add these new lines:
+  AfterCaseLabel: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeWhile: true
+  # This is key for struct/array initializations:
+  AfterObjCDeclaration: true
+
+# Spaces and Parentheses
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyParentheses: false
+SpacesInCStyleCastParentheses: false
+SpacesInParentheses: false
+SpacesInSquareBrackets: false
+
+# Comments
+ReflowComments: true
+SpacesBeforeTrailingComments: 1
+
+# Preprocessor
+IndentPPDirectives: None
+SortIncludes: Never # Don't sort includes for embedded
+
+# Other
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 2
+
+# Include Handling
+IncludeBlocks: Preserve # Preserve include blocks as they are
+IncludeCategories:
+# Define priority for different include patterns
+- Regex: '^(<|"(stdio|stdlib|string|stdint|stdbool)/)' # Standard headers first
+  Priority: 1
+  SortPriority: 0
+- Regex: '^"driver/' # Local driver headers second
+  Priority: 2
+  SortPriority: 0
+- Regex: '.*' # All other headers last
+  Priority: 3
+  SortPriority: 0

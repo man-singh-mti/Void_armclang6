@@ -1,0 +1,48 @@
+minimum_pre_commit_version: "3.7.0"
+fail_fast: false
+default_stages: [pre-commit]
+# default_language_version:
+#   python: python3.12   # only matters for python-based hooks
+
+# GLOBAL EXCLUSION: This prevents ALL hooks from looking at these paths
+exclude: >
+    (?x)^(
+      Drivers/|
+      MDK-ARM/|
+      third_party/|
+      external/|
+      vendor/|
+      .*\.ptp$|
+      .*\.ptn$
+    )
+
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v6.0.0
+      hooks:
+          - id: trailing-whitespace
+            args: [--markdown-linebreak-ext=md]
+          - id: end-of-file-fixer
+          - id: mixed-line-ending
+            args: [--fix=lf] # pick lf or crlf; don’t leave "auto" ambiguous
+          - id: check-added-large-files
+            args: [--maxkb=1024] # set policy; adjust
+          - id: check-yaml
+          - id: check-merge-conflict
+          - id: check-case-conflict
+          - id: check-symlinks
+          - id: detect-private-key
+          - id: forbid-submodules # remove if you use git submodules
+
+    - repo: https://github.com/Lucas-C/pre-commit-hooks
+      rev: v1.5.6
+      hooks:
+          - id: remove-tabs
+            args: [--whitespaces-count, "4"]
+
+    - repo: https://github.com/pre-commit/mirrors-clang-format
+      rev: v18.1.8
+      hooks:
+          - id: clang-format
+            files: \.(c|h|cc|cxx|cpp|hpp)$
+            args: ["-i", "--style=file"]
