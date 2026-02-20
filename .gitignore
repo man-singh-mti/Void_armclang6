@@ -87,6 +87,9 @@ Releases/*
 Debug/
 Release/
 generated/
+tmp/
+out/
+build/
 
 
 # Miscellaneous

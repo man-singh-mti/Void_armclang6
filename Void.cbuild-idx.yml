@@ -1,0 +1,19 @@
+build-idx:
+  generated-by: csolution version 2.12.0+p48-gd3223e31
+  csolution: Void.csolution.yml
+  cbuild-run: out/Void+Release.cbuild-run.yml
+  tmpdir: tmp
+  cprojects:
+    - cproject: Void.cproject.yml
+  cbuilds:
+    - cbuild: out/Void/Release/Void+Release.cbuild.yml
+      project: Void
+      configuration: +Release
+      messages:
+        info:
+          - Void.cbuild-pack.yml - file is already up-to-date
+          - Void+Release.cbuild-run.yml - file is already up-to-date
+          - Void+Release.cbuild.yml - file is already up-to-date
+      packs-unused:
+        - pack: ARM::CMSIS-DSP@1.17.0
+        - pack: ARM::CMSIS-NN@4.1.0

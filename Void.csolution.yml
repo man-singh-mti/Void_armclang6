@@ -1,0 +1,21 @@
+solution:
+  created-by: uv2csolution@1.6.0
+  created-for: CMSIS-Toolbox@2.12.0
+  compiler: AC6
+  target-types:
+    - type: Release
+      device: STM32F722RETx
+      optimize: debug
+      target-set:
+        - set:
+          images:
+            - project-context: Void
+    - type: Debug
+      device: STM32F722RETx
+      optimize: debug
+      target-set:
+        - set:
+          images:
+            - project-context: Void
+  projects:
+    - project: Void.cproject.yml

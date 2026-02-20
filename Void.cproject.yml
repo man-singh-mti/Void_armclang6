@@ -1,0 +1,201 @@
+project:
+  packs:
+    - pack: ARM::CMSIS@^6.3.0
+    - pack: Keil::STM32F7xx_DFP@^3.1.1
+    - pack: ARM::CMSIS-NN@^4.0.0
+    - pack: ARM::CMSIS-DSP@^1.10.1
+  setups:
+    - setup: Options for Release
+      for-context: +Release
+      processor:
+        fpu: sp
+      add-path:
+        - Source/Core/Inc
+        - Drivers/STM32F7xx_HAL_Driver/Inc
+        - Drivers/STM32F7xx_HAL_Driver/Inc/Legacy
+        - Drivers/CMSIS/Device/ST/STM32F7xx/Include
+        - Drivers/CMSIS/Include
+        - Source/Device/Inc
+      debug: "on"
+      define:
+        - USE_HAL_DRIVER
+        - STM32F722xx
+        - __MICROLIB
+      define-asm:
+        - __MICROLIB
+      misc:
+        - C:
+            - -std=c11
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++11
+            - -fno-exceptions
+          ASM:
+            - -masm=auto
+          Link:
+            - --library_type=microlib
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+    - setup: Options for Debug
+      for-context: +Debug
+      processor:
+        fpu: sp
+      add-path:
+        - Source/Core/Inc
+        - Drivers/STM32F7xx_HAL_Driver/Inc
+        - Drivers/STM32F7xx_HAL_Driver/Inc/Legacy
+        - Drivers/CMSIS/Device/ST/STM32F7xx/Include
+        - Drivers/CMSIS/Include
+        - Source/Device/Inc
+      debug: "on"
+      define:
+        - USE_HAL_DRIVER
+        - STM32F722xx
+        - DEBUG
+        - __MICROLIB
+      define-asm:
+        - __MICROLIB
+      misc:
+        - C:
+            - -std=c11
+          C-CPP:
+            - -fno-rtti
+            - -funsigned-char
+            - -fshort-enums
+            - -fshort-wchar
+            - -ffunction-sections
+            - -Wno-packed
+            - -Wno-missing-variable-declarations
+            - -Wno-missing-prototypes
+            - -Wno-missing-noreturn
+            - -Wno-sign-conversion
+            - -Wno-nonportable-include-path
+            - -Wno-reserved-id-macro
+            - -Wno-unused-macros
+            - -Wno-documentation-unknown-command
+            - -Wno-documentation
+            - -Wno-license-management
+            - -Wno-parentheses-equality
+          CPP:
+            - -xc++
+            - -std=c++11
+            - -fno-exceptions
+          ASM:
+            - -masm=auto
+          Link:
+            - --library_type=microlib
+            - --map
+            - --load_addr_map_info
+            - --xref
+            - --callgraph
+            - --symbols
+            - --info sizes
+            - --info totals
+            - --info unused
+            - --info veneers
+            - --strict
+            - --summary_stderr
+            - --info summarysizes
+  linker:
+    - script: Void_Void_REL.sct
+      for-context: +Release
+    - script: Void_Void_DBG.sct
+      for-context: +Debug
+  groups:
+    - group: MDK-ARM
+      files:
+        - file: Drivers/startup_stm32f722xx.s
+          misc:
+            - ASM:
+                - -masm=auto
+    - group: Core
+      files:
+        - file: Source/Core/Src/main.c
+        - file: Source/Core/Src/gpio.c
+        - file: Source/Core/Src/adc.c
+        - file: Source/Core/Src/can.c
+        - file: Source/Core/Src/dma.c
+        - file: Source/Core/Src/i2c.c
+        - file: Source/Core/Src/spi.c
+        - file: Source/Core/Src/tim.c
+        - file: Source/Core/Src/usart.c
+        - file: Source/Core/Src/stm32f7xx_it.c
+        - file: Source/Core/Src/stm32f7xx_hal_msp.c
+    - group: Device
+      files:
+        - file: Source/Device/Src/vmt_command.c
+        - file: Source/Device/Src/vmt_device.c
+        - file: Source/Device/Src/vmt_string.c
+        - file: Source/Device/Src/vmt_uart.c
+        - file: Source/Device/Src/vmt_adc.c
+        - file: Source/Device/Src/vmt_icm20948.c
+        - file: Source/Device/Src/mti_imu.c
+        - file: Source/Device/Src/mti_water.c
+        - file: Source/Device/Src/vmt_flash.c
+        - file: Source/Device/Src/vmt_flash_fifo.c
+        - file: Source/Device/Src/mti_system.c
+        - file: Source/Device/Src/mti_can.c
+        - file: Source/Device/Src/vmt_i2c_async.c
+        - file: Source/Device/Src/pca9534.c
+        - file: Source/Device/Src/xm125_async.c
+        - file: Source/Device/Src/xm125_profiles.c
+        - file: Source/Device/Src/mti_void.c
+        - file: Source/Device/Src/mti_radar.c
+    - group: Drivers/STM32F7xx_HAL_Driver
+      files:
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_adc_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_rcc_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_flash_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_gpio.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_dma_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_cortex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_i2c_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_exti.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_can.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_spi_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_tim_ex.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart.c
+        - file: Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_uart_ex.c
+    - group: Drivers/CMSIS
+      files:
+        - file: Source/Core/Src/system_stm32f7xx.c
+  components:
+    - component: ARM::CMSIS:CORE
